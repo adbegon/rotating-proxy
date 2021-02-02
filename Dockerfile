@@ -1,3 +1,4 @@
+FROM quay.io/spivegin/gobetween:latest AS gobetween
 FROM quay.io/spivegin/tlmbasedebian
 MAINTAINER Matthias Kadenbach <matthias.kadenbach@gmail.com>
 ENV DINIT=1.2.4 \
@@ -11,7 +12,8 @@ RUN apt-get update && apt upgrade -y &&\
     apt-get autoclean && apt-get autoremove &&\
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/*    
 
-RUN echo deb https://deb.torproject.org/torproject.org stretch main >> /etc/apt/sources.list.d/tor.list &&\
+RUN mkdir /opt/bin && \
+    echo deb https://deb.torproject.org/torproject.org stretch main >> /etc/apt/sources.list.d/tor.list &&\
     curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import && \
     gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add - &&\
     apt update &&\
@@ -19,7 +21,9 @@ RUN echo deb https://deb.torproject.org/torproject.org stretch main >> /etc/apt/
     apt-get autoclean && apt-get autoremove &&\
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/*    
 
-
+ADD --from=gobetween /opt/bin/gobetween /opt/bin/gobetween
+RUN chmod +x /opt/bin/gobetween &&
+    ln -s /opt/bin/gobetween /bin/gobetween
 RUN update-rc.d -f tor remove
 RUN update-rc.d -f polipo remove
 
