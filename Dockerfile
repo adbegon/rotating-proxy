@@ -7,7 +7,7 @@ ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.4/dumb-init_${DINIT
 RUN apt-get update && \
     apt-get install -y gnupg2 tor polipo haproxy ruby-full libssl-dev wget curl zlib1g-dev libyaml-dev libssl-dev && \
     ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/libssl.so.1.0.0 &&\
-    dpkg -i /tmp/dumb-init.deb &&
+    dpkg -i /tmp/dumb-init.deb &&\
     apt-get autoclean && apt-get autoremove &&\
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/*    
 
