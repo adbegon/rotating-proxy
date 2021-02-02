@@ -14,13 +14,10 @@ defaults
   timeout server 60s
 
 
-listen stats *:4444
+listen stats 0.0.0.0:4444
   mode            http
   log             global
   maxconn 10
-  clitimeout      100s
-  srvtimeout      100s
-  contimeout      100s
   timeout queue   100s
   stats enable
   stats hide-version
