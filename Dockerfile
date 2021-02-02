@@ -22,7 +22,7 @@ RUN mkdir /opt/bin && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /root/*    
 
 ADD --from=gobetween /opt/bin/gobetween /opt/bin/gobetween
-RUN chmod +x /opt/bin/gobetween &&
+RUN chmod +x /opt/bin/gobetween && \
     ln -s /opt/bin/gobetween /bin/gobetween
 RUN update-rc.d -f tor remove
 RUN update-rc.d -f polipo remove
