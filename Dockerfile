@@ -1,5 +1,7 @@
 FROM quay.io/spivegin/tlmbasedebian
 MAINTAINER Matthias Kadenbach <matthias.kadenbach@gmail.com>
+RUN apt-get update && \
+    apt-get install -y gnupg
 
 RUN echo 'deb http://deb.torproject.org/torproject.org trusty main' | tee /etc/apt/sources.list.d/torproject.list
 RUN gpg --keyserver keys.gnupg.net --recv 886DDD89
@@ -10,7 +12,7 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv C3173AA6
 RUN gpg --export 80f70e11f0f0d5f10cb20e62f5da5f09c3173aa6 | apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y tor polipo haproxy ruby2.1 libssl-dev wget curl build-essential zlib1g-dev libyaml-dev libssl-dev gnupg && \
+    apt-get install -y tor polipo haproxy ruby2.1 libssl-dev wget curl zlib1g-dev libyaml-dev libssl-dev && \
     ln -s /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/libssl.so.1.0.0
 
 RUN update-rc.d -f tor remove
