@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM quay.io/spivegin/tlmbasedebian
 MAINTAINER Matthias Kadenbach <matthias.kadenbach@gmail.com>
 
 RUN echo 'deb http://deb.torproject.org/torproject.org trusty main' | tee /etc/apt/sources.list.d/torproject.list
